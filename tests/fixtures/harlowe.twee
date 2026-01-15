@@ -1,0 +1,315 @@
+::StoryTitle
+Test Story for Harlowe 3.x Syntax
+
+::StoryData
+{
+  "ifid": "F1E2D3C4-B5A6-9788-6655-443322110000",
+  "format": "Harlowe",
+  "format-version": "3.3.8"
+}
+
+::Start [intro opening] {"position":"100,100"}
+<!-- This is a comment -->
+<!-- TODO: Test all Harlowe syntax features -->
+<!-- FIXME: Verify macro rendering -->
+
+This passage tests core Twee elements and Harlowe-specific syntax.
+
+==Main Heading==
+===Subheading===
+====Smaller Heading====
+
+<!-- Harlowe Markdown -->
+
+This is //italic// text.
+This is ''bold'' text.
+This is ~~strikethrough~~ text.
+This is superscript: x^^2^^ = 9
+
+<!-- Variables -->
+
+(set: $playerName to "Bob")
+(set: $health to 100)
+(set: $maxHealth to 100)
+(set: _tempValue to 42)
+(set: $level to 5)
+(set: $gold to 250)
+
+Player: $playerName
+Health: $health / $maxHealth
+Level: $level
+Gold: $gold
+
+<!-- Arrays (Data Structures) -->
+
+(set: $inventory to (a: "sword", "shield", "potion"))
+(set: $stats to (dm: "str", 10, "dex", 15, "int", 12))
+(set: $visited to (ds: "Start", "Shop"))
+
+Inventory: (print: $inventory)
+Strength: (print: $stats's str)
+
+<!-- Conditionals -->
+
+(if: $health > 80)[
+  You are in excellent health!
+]
+
+(if: $health > 50)[
+  You are healthy.
+](else-if: $health > 25)[
+  You are injured.
+](else:)[
+  You are critically wounded!
+]
+
+(unless: $gold < 100)[
+  You have plenty of gold.
+]
+
+<!-- Loops -->
+
+Your inventory:
+(for: each _item, ...$inventory)[
+  * _item
+]
+
+(set: $numbers to (a: 1, 2, 3, 4, 5))
+(for: each _num, ...$numbers)[
+  Number: _num
+]
+
+<!-- Operators -->
+
+(set: $result to $level + 5)
+(set: $calculation to $gold * 2)
+(set: $comparison to $health >= 50)
+
+Result: $result
+Calculation: $calculation
+Comparison: $comparison
+
+(if: $health is 100)[Full health!]
+(if: $playerName is not "Alice")[Not Alice]
+(if: $inventory contains "sword")[You have a sword!]
+(if: "potion" is in $inventory)[You have a potion!]
+(if: $playerName matches "B")[Name starts with B]
+
+<!-- Boolean Values -->
+
+(set: $isAlive to true)
+(set: $hasKey to false)
+
+Alive: $isAlive
+Has Key: $hasKey
+
+<!-- Links -->
+
+[[Next Passage]]
+[[Go to Shop->Shop]]
+[[Tavern<-Visit the Tavern]]
+
+(link: "Click me")[You clicked!]
+(link-goto: "Travel", "TravelPage")
+(link-reveal: "Show more")[Hidden text appears!]
+
+<!-- Text Styling Macros -->
+
+(text-style: "italic")[This text is italicized]
+(text-style: "bold")[This text is bold]
+(text-style: "strike")[This text has strikethrough]
+
+(text-colour: red)[Red text]
+(text-color: blue)[Blue text]
+
+(bg: yellow)[Yellow background]
+(background: green)[Green background]
+
+(font: "Courier")[Monospace font]
+
+(align: "==><==")[Centered text]
+
+(transition: "fade")[Fading text]
+
+<!-- State and History -->
+
+Times visited: (history:)'s length
+Current passage: (passage:)'s name
+
+(if: (visited: "Shop"))[
+  You have visited the shop before.
+]
+
+<!-- Interactive Macros -->
+
+(click: "secret")[The secret is revealed!]
+
+<!-- Enchantment Macros -->
+
+(enchant: ?passage, (text-colour: blue))
+(change: ?link, (text-style: "bold"))
+
+<!-- Named Hooks -->
+
+[This is a named hook]<hook1|
+
+|hook2>[Another named hook]
+
+(click: ?hook1)[The first hook was clicked!]
+
+<!-- Data Manipulation Commands -->
+
+(set: $newArray to (a:))
+(set: $newArray to $newArray + (a: "item1"))
+(put: "item2" into $newArray)
+(move: $inventory's 1st into $newArray)
+
+<!-- Display and Print -->
+
+(print: "Printing text")
+(display: "AnotherPassage")
+
+<!-- Cycling Links -->
+
+(cycling-link: "Option A", "Option B", "Option C")
+
+<!-- Live Regions -->
+
+(live: 1s)[
+  Time: (current-time:)
+]
+
+(stop:)
+
+<!-- Continue and Break -->
+
+(for: each _i, ...(range: 1, 10))[
+  (if: _i is 5)[(continue:)]
+  (if: _i is 8)[(break:)]
+  _i
+]
+
+<!-- Cond Macro -->
+
+(cond:
+  $health > 80, "Excellent",
+  $health > 50, "Good",
+  $health > 25, "Fair",
+  "Poor"
+)
+
+<!-- Data Structure Functions -->
+
+(set: $rangeArray to (range: 1, 5))
+(set: $repeated to (repeated: 3, "x"))
+(set: $reversed to (reversed: ...$inventory))
+(set: $sorted to (sorted: 3, 1, 2))
+(set: $shuffled to (shuffled: ...$inventory))
+
+<!-- Either (Random Selection) -->
+
+(either: "heads", "tails")
+
+<!-- Nth -->
+
+(nth: 2, "a", "b", "c", "d")
+
+<!-- Standard Twee Links (core syntax) -->
+
+[[Simple Link]]
+[[Display Text|Target]]
+[[Display->Target]]
+[[Target<-Display]]
+
+::Shop [location merchant]
+==The Shop==
+
+Welcome, $playerName!
+
+(set: $swordPrice to 50)
+
+You have $gold gold.
+
+(if: $gold >= $swordPrice)[
+  [[Buy Sword->BuySword]]
+](else:)[
+  You need $swordPrice gold for a sword. Come back when you have more!
+]
+
+[[Leave->Start]]
+
+::BuySword
+(set: $gold to $gold - 50)
+(set: $inventory to $inventory + (a: "new sword"))
+
+You bought a sword!
+
+Remaining gold: $gold
+
+[[Return to Shop->Shop]]
+
+::Next Passage
+This is the next passage.
+
+Variable from previous passage: $playerName
+
+(set: _localCounter to 0)
+(set: _localCounter to _localCounter + 1)
+
+Local counter: _localCounter
+
+[[Back->Start]]
+
+::TravelPage
+You traveled here!
+
+[[Home->Start]]
+
+::AnotherPassage
+This passage can be displayed with (display:).
+
+::Tavern [location social]
+Welcome to the Tavern, $playerName!
+
+//The tavern is bustling with activity.//
+
+''Menu:''
+* Ale - 5 gold
+* Meal - 10 gold
+* Room - 20 gold
+
+[[Leave Tavern->Start]]
+
+::Combat [encounter]
+(set: $enemyHealth to 50)
+(set: $playerDamage to 15)
+
+''Combat!''
+
+(set: $enemyHealth to $enemyHealth - $playerDamage)
+
+You deal $playerDamage damage!
+Enemy Health: $enemyHealth
+
+(if: $enemyHealth <= 0)[
+  [[Victory!->Victory]]
+](else:)[
+  [[Attack Again->Combat]]
+  [[Flee->Start]]
+]
+
+::Victory
+''Victory!''
+
+(set: $experience to $experience + 50)
+(set: $level to $level + 1)
+
+New Level: $level
+Experience: $experience
+
+[[Continue->Start]]
+
+::Simple Link
+This tests simple link navigation.
+
+[[Go back->Start]]

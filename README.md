@@ -51,9 +51,9 @@ The buffer-local setting (`b:twee_story_format`) takes precedence over the globa
 | Format | Status | Variable Value |
 |--------|--------|----------------|
 | SugarCube 2/3 | ✅ Fully Supported | `'sugarcube'` |
-| Harlowe 3.x | 🚧 Coming Soon | `'harlowe'` |
-| Chapbook 2.x | 🚧 Coming Soon | `'chapbook'` |
-| Snowman 2.x | 🚧 Coming Soon | `'snowman'` |
+| Harlowe 3.x | ✅ Fully Supported | `'harlowe'` |
+| Chapbook 2.x | ✅ Fully Supported | `'chapbook'` |
+| Snowman 2.x | ✅ Fully Supported | `'snowman'` |
 
 ## Compatibility
 

@@ -187,6 +187,42 @@ main() {
             print_error "Core file load FAILED in $editor"
             ((TOTAL_FAILED++)) || true
         fi
+
+        print_test "Loading Snowman test file with $editor"
+        if "$editor" -u NONE -N --cmd "set runtimepath+=$PLUGIN_DIR" \
+                    --cmd "let g:twee_story_format = 'snowman'" \
+                    -c "syntax on" -c "set filetype=twee" \
+                    -c "quit" "$SCRIPT_DIR/fixtures/snowman.twee" > /dev/null 2>&1; then
+            print_success "Snowman file loads without errors in $editor"
+            ((TOTAL_PASSED++)) || true
+        else
+            print_error "Snowman file load FAILED in $editor"
+            ((TOTAL_FAILED++)) || true
+        fi
+
+        print_test "Loading Harlowe test file with $editor"
+        if "$editor" -u NONE -N --cmd "set runtimepath+=$PLUGIN_DIR" \
+                    --cmd "let g:twee_story_format = 'harlowe'" \
+                    -c "syntax on" -c "set filetype=twee" \
+                    -c "quit" "$SCRIPT_DIR/fixtures/harlowe.twee" > /dev/null 2>&1; then
+            print_success "Harlowe file loads without errors in $editor"
+            ((TOTAL_PASSED++)) || true
+        else
+            print_error "Harlowe file load FAILED in $editor"
+            ((TOTAL_FAILED++)) || true
+        fi
+
+        print_test "Loading Chapbook test file with $editor"
+        if "$editor" -u NONE -N --cmd "set runtimepath+=$PLUGIN_DIR" \
+                    --cmd "let g:twee_story_format = 'chapbook'" \
+                    -c "syntax on" -c "set filetype=twee" \
+                    -c "quit" "$SCRIPT_DIR/fixtures/chapbook.twee" > /dev/null 2>&1; then
+            print_success "Chapbook file loads without errors in $editor"
+            ((TOTAL_PASSED++)) || true
+        else
+            print_error "Chapbook file load FAILED in $editor"
+            ((TOTAL_FAILED++)) || true
+        fi
     done
 
     # Print final results
