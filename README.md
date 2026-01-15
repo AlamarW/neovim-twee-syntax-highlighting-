@@ -55,6 +55,41 @@ The buffer-local setting (`b:twee_story_format`) takes precedence over the globa
 | Chapbook 2.x | 🚧 Coming Soon | `'chapbook'` |
 | Snowman 2.x | 🚧 Coming Soon | `'snowman'` |
 
+## Compatibility
+
+This plugin is compatible with both **Vim** (8.0+) and **Neovim** (0.5+). It uses standard Vimscript syntax definitions and does not require any Lua or Neovim-specific features.
+
+### Tested Editors
+
+- ✅ Vim 8.0+
+- ✅ Neovim 0.5+
+
+The plugin works with any Vim-compatible plugin manager:
+- Traditional Vim managers: Pathogen, Vundle, vim-plug
+- Neovim-specific managers: lazy.nvim, packer.nvim
+
+## Testing
+
+This plugin includes a comprehensive test suite to ensure reliability across different editors and configurations.
+
+### Running Tests
+
+```bash
+# Run all tests (summary output)
+./tests/run_tests.sh
+
+# Run with verbose output
+./tests/run_tests.sh --verbose
+```
+
+The test suite verifies:
+- Syntax highlighting groups are properly defined
+- Configuration options work correctly (global and buffer-local)
+- Files load without errors in both Vim and Neovim
+- Format detection and fallback behavior
+
+See [tests/README.md](tests/README.md) for more details.
+
 ## Contribute
 
 Feel free to submit a pull request or open an issue for any unexpected highlighting issues!
