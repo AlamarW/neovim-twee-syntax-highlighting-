@@ -1,0 +1,42 @@
+::StoryTitle
+Core Twee 3 Test
+
+::Start [tag1 tag2 tag3]
+This file tests only core Twee 3 syntax elements that are universal across all story formats.
+
+<!-- This is an HTML comment -->
+<!-- TODO: This is a TODO -->
+<!-- FIXME: This needs fixing -->
+<!-- XXX: Review this -->
+
+Passages and links are the core of Twee:
+
+[[Simple Link]]
+[[Link Text|Target Passage]]
+[[Display->Target]]
+[[Target<-Backward Link]]
+
+::Simple Link
+A simple passage.
+
+[[Back to Start|Start]]
+
+::Target Passage [multiple tags here] {"metadata":"value"}
+This passage has tags and metadata.
+
+Line continuation works\
+across lines.
+
+::Target
+Another target passage.
+
+<!-- Comments can appear anywhere -->
+
+HTML elements work in core Twee:
+<div>
+  <p>HTML paragraph</p>
+  <span>HTML span</span>
+</div>
+
+::Final [ending]
+The end.

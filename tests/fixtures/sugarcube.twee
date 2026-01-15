@@ -1,0 +1,165 @@
+::StoryTitle
+Test Story for SugarCube Syntax
+
+::StoryData
+{
+  "ifid": "D674C58C-DEFA-4F70-B7A2-27742230C0FC",
+  "format": "SugarCube",
+  "format-version": "2.36.1"
+}
+
+::Start [intro opening] {"position":"100,100","size":"100,100"}
+<!-- This is a comment -->
+<!-- TODO: Add more story content -->
+<!-- FIXME: Fix broken link -->
+<!-- XXX: Review this passage -->
+
+This is the starting passage with core Twee elements.
+
+You have $gold pieces of gold.
+Your temporary counter is _counter.
+The player's name is $player.name and level is $player.level.
+
+''This text is bold'' and //this is italic// and __this is underlined__.
+
+* First list item
+* Second list item
+# Numbered item one
+# Numbered item two
+
+<<if $gold gt 100>>
+  You are wealthy!
+<<elseif $gold gt 50>>
+  You have some money.
+<<else>>
+  You are poor.
+<</if>>
+
+<<set $gold to 50>>
+<<set _tempVar to "temporary">>
+<<set $player.inventory to ["sword", "shield"]>>
+
+<<for _i to 0; _i lt 10; _i++>>
+  Item _i
+<</for>>
+
+<<switch $choice>>
+<<case 1>>
+  First choice
+<<case 2>>
+  Second choice
+<<default>>
+  Default choice
+<</switch>>
+
+Line continuation test\
+continues here.
+
+[[Next Passage]]
+[[Go to Shop|Shop]]
+[[Market->Market Place]]
+[[Start<-Return to Start]]
+
+<<link "Click me">>
+  <<set $clicked to true>>
+<</link>>
+
+<<button "Press me">>
+  <<goto "Next Passage">>
+<</button>>
+
+::Shop [store merchant]
+Welcome to the shop!
+
+<<nobr>>
+<<if $gold gte 100>>
+  <<print "You can afford the sword!">>
+<<else>>
+  <<silently>>
+    <<set _message to "Not enough gold">>
+  <</silently>>
+  _message
+<</if>>
+<</nobr>>
+
+Price: <<= $swordPrice>>
+
+<<textbox "$playerName" $playerName>>
+<<checkbox "$hasSword" false true>>
+<<radiobutton "$difficulty" "easy" checked>>
+<<radiobutton "$difficulty" "hard">>
+
+<<listbox "$choice">>
+  <<option "Option 1">>
+  <<option "Option 2">>
+<</listbox>>
+
+<<textarea "$notes" "">>
+<<numberbox "$age" 0>>
+<<cycle "$time">>
+  <<option "morning">>
+  <<option "evening">>
+<</cycle>>
+
+Audio test:
+<<audio "bgm" play>>
+<<cacheaudio "effect" "sound.mp3">>
+
+[[Return|Start]]
+
+::Market Place
+<<script>>
+  console.log("JavaScript in a macro");
+  var x = 100;
+<</script>>
+
+<<run setup.myFunction()>>
+
+<<timed 5s>>
+  This appears after 5 seconds.
+<<next 3s>>
+  This appears 3 seconds later.
+<</timed>>
+
+<<repeat 1s>>
+  Repeating every second.
+  <<stop>>
+<</repeat>>
+
+[[Back->Start]]
+
+::Next Passage
+<<widget "testWidget">>
+  Widget content here.
+<</widget>>
+
+Testing operators: eq, neq, is, isnot, gt, gte, lt, lte, and, or, not, def, ndef
+
+<<if def $testVar and $testVar isnot 0>>
+  Variable is defined and not zero.
+<</if>>
+
+Boolean values: true and false
+
+<<capture $capturedVar>>
+  Captured: $capturedVar
+<</capture>>
+
+Actions:
+<<addclass ".target" "newclass">>
+<<removeclass ".target" "oldclass">>
+<<toggleclass ".target" "toggleclass">>
+<<append "#target">>Content<</append>>
+<<prepend "#target">>Content<</prepend>>
+<<replace "#target">>Content<</replace>>
+<<remove ".target">>
+<<copy "#source" "#dest">>
+
+::End [ending final]
+The end of the test story.
+
+HTML elements work too:
+<div class="test">
+  <p>Paragraph with <strong>bold</strong> and <em>italic</em></p>
+  <a href="#">Link</a>
+</div>
