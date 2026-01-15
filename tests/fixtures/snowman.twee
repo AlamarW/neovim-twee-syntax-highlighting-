@@ -1,0 +1,256 @@
+::StoryTitle
+Test Story for Snowman 2.x Syntax
+
+::StoryData
+{
+  "ifid": "A1B2C3D4-E5F6-G7H8-I9J0-K1L2M3N4O5P6",
+  "format": "Snowman",
+  "format-version": "2.0.3"
+}
+
+::Start [intro opening] {"position":"100,100"}
+<!-- This is a comment -->
+<!-- TODO: Test all Snowman syntax features -->
+<!-- FIXME: Verify template rendering -->
+
+This passage tests core Twee elements and Snowman-specific syntax.
+
+<h1>Snowman Template Syntax Tests</h1>
+
+<!-- Underscore.js Template Tags -->
+
+<% /* Execute JavaScript without output */ %>
+<% var localVariable = "test"; %>
+<% let modernVar = 42; %>
+<% const CONSTANT = "constant value"; %>
+
+<!-- Output with <%= %> -->
+<%= "This is output" %>
+
+<!-- Story Variables -->
+<% s.playerName = "Alice"; %>
+<% s.health = 100; %>
+<% s.inventory = ["sword", "shield", "potion"]; %>
+<% s.level = 5; %>
+<% s.stats = {str: 10, dex: 15, int: 12}; %>
+
+Player: <%= s.playerName %><br>
+Health: <%= s.health %><br>
+Level: <%= s.level %><br>
+Strength: <%= s.stats.str %>
+
+<!-- JavaScript Operators and Expressions -->
+<% s.health -= 10; %>
+<% s.level++; %>
+<% s.experience = s.level * 100; %>
+
+New Health: <%= s.health %><br>
+New Level: <%= s.level %><br>
+Experience: <%= s.experience %>
+
+<!-- Conditional Logic -->
+<% if (s.health > 50) { %>
+  You are healthy!
+<% } else if (s.health > 25) { %>
+  You are injured.
+<% } else { %>
+  You are critically wounded!
+<% } %>
+
+<!-- Loops -->
+<ul>
+<% for (var i = 0; i < s.inventory.length; i++) { %>
+  <li><%= s.inventory[i] %></li>
+<% } %>
+</ul>
+
+<% for (let item of s.inventory) { %>
+  Item: <%= item %><br>
+<% } %>
+
+<% s.inventory.forEach(function(item) { %>
+  * <%= item %><br>
+<% }); %>
+
+<!-- Underscore Functions -->
+<% print("Using the print function"); %>
+
+<!-- Switch Statement -->
+<% switch (s.level) { %>
+  <% case 1: %>
+    Beginner
+    <% break; %>
+  <% case 5: %>
+    Intermediate
+    <% break; %>
+  <% case 10: %>
+    Advanced
+    <% break; %>
+  <% default: %>
+    Unknown level
+<% } %>
+
+<!-- Try-Catch -->
+<% try { %>
+  <% s.result = s.someUndefinedValue || "default"; %>
+<% } catch (e) { %>
+  Error caught: <%= e.message %>
+<% } finally { %>
+  Cleanup code here
+<% } %>
+
+<!-- Functions -->
+<%
+function calculateDamage(base, modifier) {
+  return base * modifier;
+}
+s.damage = calculateDamage(10, 1.5);
+%>
+Damage: <%= s.damage %>
+
+<!-- Arrow Functions (ES6) -->
+<%
+const multiply = (a, b) => a * b;
+s.score = multiply(s.level, 100);
+%>
+Score: <%= s.score %>
+
+<!-- Template Literals -->
+<%
+s.greeting = `Hello, ${s.playerName}! You are level ${s.level}.`;
+%>
+<%= s.greeting %>
+
+<!-- typeof and instanceof -->
+<%
+s.healthType = typeof s.health;
+s.isArray = Array.isArray(s.inventory);
+%>
+Health type: <%= s.healthType %><br>
+Inventory is array: <%= s.isArray %>
+
+<!-- Boolean Values -->
+<% s.isAlive = true; %>
+<% s.hasKey = false; %>
+<% s.nothing = null; %>
+<% s.notDefined = undefined; %>
+
+Alive: <%= s.isAlive %><br>
+Has Key: <%= s.hasKey %><br>
+Nothing: <%= s.nothing %><br>
+Not Defined: <%= s.notDefined %>
+
+<!-- Comments in Templates -->
+<%
+// Single-line comment
+/* Multi-line
+   comment */
+s.commented = "value";
+%>
+
+<!-- Standard Twee Links (core syntax) -->
+[[Next Passage]]
+[[Go to Shop|Shop]]
+[[Combat->Combat Scene]]
+[[Start<-Return to Start]]
+
+<!-- window.story API -->
+<%
+// Accessing story API
+if (window.story) {
+  var currentPassage = story.state.passage;
+}
+%>
+
+<!-- HTML-Escaped Output (if supported) -->
+<%- s.htmlContent %>
+
+<!-- Delete Operator -->
+<% delete s.temporaryVar; %>
+
+<!-- void Operator -->
+<% void(0); %>
+
+<!-- in Operator -->
+<% 'health' in s %>
+
+<!-- of Operator (for...of already shown above) -->
+
+<!-- new Operator -->
+<% s.date = new Date(); %>
+<% s.customObject = new Object(); %>
+
+<!-- throw -->
+<%
+function checkHealth(val) {
+  if (val < 0) {
+    throw new Error("Health cannot be negative");
+  }
+  return val;
+}
+%>
+
+::Shop [location merchant]
+<h2>Welcome to the Shop!</h2>
+
+<% s.gold = s.gold || 100; %>
+<% s.swordPrice = 50; %>
+
+You have <%= s.gold %> gold pieces.
+
+<% if (s.gold >= s.swordPrice) { %>
+  [[Buy Sword->BuySword]]
+<% } else { %>
+  You don't have enough gold for the sword.
+<% } %>
+
+[[Leave Shop|Start]]
+
+::BuySword
+<%
+s.gold -= s.swordPrice;
+s.inventory.push("new sword");
+%>
+
+You bought a sword for <%= s.swordPrice %> gold!
+Remaining gold: <%= s.gold %>
+
+[[Return to Shop|Shop]]
+
+::Combat Scene
+<% s.enemyHealth = 50; %>
+<% s.playerDamage = 15; %>
+
+Combat!
+
+<% s.enemyHealth -= s.playerDamage; %>
+You deal <%= s.playerDamage %> damage!
+Enemy health: <%= s.enemyHealth %>
+
+<% if (s.enemyHealth <= 0) { %>
+  [[Victory!->Victory]]
+<% } else { %>
+  [[Continue Fighting->Combat Scene]]
+<% } %>
+
+::Victory
+You won!
+
+<% s.experience += 50; %>
+<% s.level++; %>
+
+New Level: <%= s.level %>
+Total Experience: <%= s.experience %>
+
+[[Continue->Start]]
+
+::Next Passage
+This passage tests mixed content:
+
+Regular text, then <%= s.playerName %> appears.
+
+More text with <% s.counter = s.counter || 0; s.counter++; %> inline code.
+
+Counter value: <%= s.counter %>
+
+[[Go back->Start]]

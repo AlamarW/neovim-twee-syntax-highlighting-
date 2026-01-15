@@ -1,0 +1,323 @@
+::StoryTitle
+Test Story for Chapbook 2.x Syntax
+
+::StoryData
+{
+  "ifid": "C1A2P3B4-O5O6-K789-0ABC-DEF123456789",
+  "format": "Chapbook",
+  "format-version": "2.2.0"
+}
+
+::Start [intro opening] {"position":"100,100"}
+<!-- This is a comment -->
+<!-- TODO: Test all Chapbook syntax features -->
+<!-- FIXME: Verify modifier and insert rendering -->
+
+This passage tests core Twee elements and Chapbook-specific syntax.
+
+# Main Heading
+## Subheading
+### Smaller Heading
+
+<!-- Chapbook Vars Section -->
+
+playerName: 'Alice'
+health: 100
+maxHealth: 100
+level: 5
+gold: 250
+hasKey: false
+foundClue: true
+--
+Welcome, {playerName}!
+
+**Health:** {health}/{maxHealth}
+**Level:** {level}
+**Gold:** {gold}
+
+<!-- Chapbook Markdown -->
+
+This is *italic* text and _also italic_.
+This is **bold** text and __also bold__.
+This is `code` text.
+This is ~~small caps~~ text (Chapbook-specific).
+
+<!-- Lists -->
+
+Unordered list:
+* First item
+* Second item
+- Third item
++ Fourth item
+
+Ordered list:
+1. Step one
+2. Step two
+# Step three (auto-numbered)
+
+<!-- Conditional Modifiers -->
+
+[if health > 80]
+You are in excellent health!
+
+[if health > 50]
+You are healthy.
+
+[unless hasKey]
+You need to find a key.
+
+[if foundClue]
+You discovered an important clue!
+
+[else]
+You haven't found anything yet.
+
+<!-- Complex Conditionals -->
+
+[if gold >= 100 && level >= 5]
+You are wealthy and experienced!
+
+[if hasKey || foundClue]
+You have made progress.
+
+[if !(health < 25)]
+You are not critically wounded.
+
+<!-- Calculated Values in Vars -->
+
+currentScore: level * 100
+damage: 10 + 5
+fullHealth: health === maxHealth
+lowHealth: health < 25
+--
+Score: {currentScore}
+Damage: {damage}
+Full Health: {fullHealth}
+
+<!-- Inserts -->
+
+Display a variable: {playerName}
+
+{embed passage: 'EmbeddedContent'}
+
+{reveal link: 'Click to show', text: 'Hidden text appears!'}
+
+{reveal link: 'Show passage', passage: 'SecretPassage'}
+
+{cycling link for: 'weapon', choices: ['sword', 'axe', 'bow']}
+
+{back link}
+
+{restart link}
+
+<!-- Standard Twee Links (core syntax) -->
+
+[[Next Passage]]
+[[Go to Shop->Shop]]
+[[Tavern<-Visit Tavern]]
+
+::Shop [location merchant]
+gold: gold
+--
+# The Shop
+
+Welcome to the shop, {playerName}!
+
+**Current Gold:** {gold}
+
+swordPrice: 50
+--
+
+[if gold >= swordPrice]
+{link to: 'BuySword', text: 'Buy Sword (50 gold)'}
+
+[else]
+You need {swordPrice} gold for a sword. Come back when you have more!
+
+[[Leave->Start]]
+
+::BuySword
+gold: gold - 50
+inventory: inventory + ['new sword']
+--
+You bought a sword!
+
+**Remaining Gold:** {gold}
+
+[[Return to Shop->Shop]]
+
+::Next Passage
+tempCounter: 0
+--
+This is the next passage.
+
+Variable from Start: {playerName}
+
+tempCounter: tempCounter + 1
+--
+Temp counter: {tempCounter}
+
+[[Back->Start]]
+
+::EmbeddedContent
+This content is embedded in another passage.
+
+::SecretPassage
+This is a secret passage revealed by a reveal link!
+
+::Tavern [location social]
+# The Tavern
+
+Welcome to the tavern, {playerName}!
+
+*The tavern is bustling with activity.*
+
+**Menu:**
+* Ale - 5 gold
+* Meal - 10 gold
+* Room - 20 gold
+
+[[Leave Tavern->Start]]
+
+::Combat [encounter]
+enemyHealth: 50
+playerDamage: 15
+--
+## Combat!
+
+enemyHealth: enemyHealth - playerDamage
+--
+
+You deal {playerDamage} damage!
+
+**Enemy Health:** {enemyHealth}
+
+[if enemyHealth <= 0]
+[[Victory!->Victory]]
+
+[else]
+[[Attack Again->Combat]]
+[[Flee->Start]]
+
+::Victory
+experience: level * 10
+level: level + 1
+--
+## Victory!
+
+**New Level:** {level}
+**Experience:** {experience}
+
+[[Continue->Start]]
+
+::TimedEvents
+[after 2s]
+This text appears after 2 seconds.
+
+[after 5s; append]
+This text appears after 5 more seconds.
+
+[[Back->Start]]
+
+::ContinuedText
+This is the first part.
+
+[continued]
+This is a continuation of the previous section.
+
+[continued]
+And this is yet another continuation.
+
+[[Back->Start]]
+
+::ComplexConditionals
+strength: 10
+dexterity: 15
+intelligence: 12
+--
+[if strength > 12]
+You are strong!
+
+[if dexterity > 10 && intelligence > 10]
+You are agile and smart!
+
+comparison: 2 + 2 === 4
+calculated: strength * 2
+--
+
+Comparison result: {comparison}
+Calculated value: {calculated}
+
+[[Back->Start]]
+
+::VarsExamples
+# Variables Test
+
+firstName: 'John'
+lastName: 'Doe'
+fullName: firstName + ' ' + lastName
+age: 25
+isAdult: age >= 18
+score: 0
+score: score + 100
+doubleScore: score * 2
+--
+
+**Full Name:** {fullName}
+**Age:** {age}
+**Is Adult:** {isAdult}
+**Score:** {score}
+**Double Score:** {doubleScore}
+
+Operators:
+result1: 10 + 5
+result2: 20 - 8
+result3: 4 * 3
+result4: 15 / 3
+--
+Addition: {result1}
+Subtraction: {result2}
+Multiplication: {result3}
+Division: {result4}
+
+comparison1: 10 > 5
+comparison2: 10 < 5
+comparison3: 10 >= 10
+comparison4: 10 <= 5
+comparison5: 10 === 10
+comparison6: 10 !== 5
+--
+10 > 5: {comparison1}
+10 < 5: {comparison2}
+10 >= 10: {comparison3}
+10 <= 5: {comparison4}
+10 === 10: {comparison5}
+10 !== 5: {comparison6}
+
+[[Back->Start]]
+
+::LinkInserts
+# Link Inserts Test
+
+{link to: 'Start', text: 'Go to Start'}
+
+{link to: 'Shop'}
+
+{back link, text: 'Go Back'}
+
+{restart link, text: 'Restart Story'}
+
+[[Standard Link->Start]]
+
+::CyclingLinks
+favoriteColor: 'red'
+--
+# Cycling Links Test
+
+Your favorite color is {favoriteColor}.
+
+Choose a color: {cycling link for: 'favoriteColor', choices: ['red', 'blue', 'green', 'yellow']}
+
+Without storing the choice: {cycling link, choices: ['option A', 'option B', 'option C']}
+
+[[Back->Start]]

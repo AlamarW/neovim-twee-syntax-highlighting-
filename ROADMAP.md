@@ -3,7 +3,7 @@
 ## Overview
 Transform vim-twee-sugarcube into a format-agnostic Twee 3 syntax highlighting plugin that supports multiple story formats through a modular plugin system.
 
-## Stage 1: Refactor to Format-Agnostic Architecture ✓ (In Progress)
+## Stage 1: Refactor to Format-Agnostic Architecture ✅ COMPLETE
 
 ### Goals
 - Extract SugarCube-specific elements from core Twee 3 syntax
@@ -12,55 +12,59 @@ Transform vim-twee-sugarcube into a format-agnostic Twee 3 syntax highlighting p
 
 ### Tasks
 - [x] Analyze current syntax/twee.vim to identify core vs format-specific elements
-- [ ] Create `syntax/twee/` directory structure
-- [ ] Create `syntax/twee/core.vim` - Universal Twee 3 structures
+- [x] Create `syntax/twee/` directory structure
+- [x] Create `syntax/twee/core.vim` - Universal Twee 3 structures
   - Passage headers: `::PassageName [tags]`
   - Wiki-style links: `[[...]]` (all forms)
   - HTML syntax inclusion
   - Comments, TODO keywords, escape characters
-- [ ] Create `syntax/twee/sugarcube.vim` - SugarCube-specific elements
+- [x] Create `syntax/twee/sugarcube.vim` - SugarCube-specific elements
   - Variables: `$var`, `_tempVar`
   - Macros: `<<...>>`
   - Keywords, operators, booleans
   - SugarCube markdown: `//italic//`, `''bold''`, `__underline__`, lists
-- [ ] Refactor `syntax/twee.vim` into plugin loader
+- [x] Refactor `syntax/twee.vim` into plugin loader
   - Check `b:twee_story_format` (buffer-local override)
   - Check `g:twee_story_format` (global config)
   - Default to 'sugarcube' for backward compatibility
   - Load core.vim + format-specific file
-- [ ] Test with SugarCube projects
-- [ ] Update README.md with new configuration instructions
+- [x] Test with SugarCube projects
+- [x] Update README.md with new configuration instructions
+- [x] Comprehensive test suite with all tests passing
 
-## Stage 2: Add Support for Other Story Formats (Future)
+## Stage 2: Add Support for Other Story Formats ✅ COMPLETE
+
+### Snowman Support
+- [x] Research Snowman 2.x syntax
+  - Template language: Underscore.js templates `<% %>`, `<%= %>`
+  - Variable syntax: `s.variable` (story variables)
+  - Links: `[[link]]`, `[[display|link]]`
+  - JavaScript expressions within templates
+- [x] Create `syntax/twee/snowman.vim`
+- [x] Create comprehensive test fixture
+- [x] Test with Snowman syntax
 
 ### Harlowe Support
-- [ ] Research Harlowe 3.x syntax
-  - Hook syntax: `(hook:)`, `(if:)`, `(set:)`, etc.
+- [x] Research Harlowe 3.x syntax
+  - Macro syntax: `(macro: args)`, hooks `[text]`
   - Variable syntax: `$variable`, `_variable` (different semantics than SugarCube)
   - Links: `[[link]]`, `[[display->link]]`
   - Markdown: `*italic*`, `**bold**`, `~~strikethrough~~`, etc.
-  - Changers, commands, and macros
-- [ ] Create `syntax/twee/harlowe.vim`
-- [ ] Test with Harlowe projects
+  - Changers, commands, and data structures
+- [x] Create `syntax/twee/harlowe.vim`
+- [x] Create comprehensive test fixture
+- [x] Test with Harlowe syntax
 
 ### Chapbook Support
-- [ ] Research Chapbook 2.x syntax
+- [x] Research Chapbook 2.x syntax
   - Modifiers: `[if expression]`, `[unless expression]`, `[after duration]`
-  - Variable syntax: `varName` (no sigils)
+  - Variable syntax: `varName` (no sigils), vars section with `--` separator
   - Links: `[[link]]`, `[[display: link]]`
-  - Markdown: standard CommonMark
+  - Markdown: CommonMark plus Chapbook extensions
   - Inserts: `{embed passage: 'name'}`, `{reveal link: 'text', text: 'hidden'}`
-- [ ] Create `syntax/twee/chapbook.vim`
-- [ ] Test with Chapbook projects
-
-### Snowman Support
-- [ ] Research Snowman 2.x syntax
-  - Template language: Underscore.js templates `<% %>`, `<%= %>`
-  - Variable syntax: `s.variable` (story), `t.variable` (temporary)
-  - Links: `[[link]]`, `[[display|link]]`
-  - JavaScript expressions within templates
-- [ ] Create `syntax/twee/snowman.vim`
-- [ ] Test with Snowman projects
+- [x] Create `syntax/twee/chapbook.vim`
+- [x] Create comprehensive test fixture
+- [x] Test with Chapbook syntax
 
 ## Stage 3: Advanced Features (Future)
 
