@@ -6,10 +6,7 @@
 " This file contains syntax definitions for universal Twee 3 structures
 " that are common across all story formats (SugarCube, Harlowe, Chapbook, etc.)
 
-if exists("b:twee_core_syntax_loaded")
-    finish
-endif
-let b:twee_core_syntax_loaded = 1
+" Note: No guard here - the main syntax/twee.vim file handles preventing duplicate loads
 
 " Include HTML syntax highlighting for .tw and .twee files
 runtime! syntax/html.vim

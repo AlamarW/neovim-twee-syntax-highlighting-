@@ -6,10 +6,7 @@
 " This file contains syntax definitions specific to the SugarCube story format.
 " It should be loaded in addition to syntax/twee/core.vim
 
-if exists("b:twee_sugarcube_syntax_loaded")
-    finish
-endif
-let b:twee_sugarcube_syntax_loaded = 1
+" Note: No guard here - the main syntax/twee.vim file handles preventing duplicate loads
 
 " ---- Define SugarCube-Specific Syntax Elements ----
 

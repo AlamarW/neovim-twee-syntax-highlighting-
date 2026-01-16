@@ -9,10 +9,7 @@
 " Chapbook is a "second-generation" Twine story format that emphasizes readability
 " and uses modifiers and inserts instead of macros.
 
-if exists("b:twee_chapbook_syntax_loaded")
-    finish
-endif
-let b:twee_chapbook_syntax_loaded = 1
+" Note: No guard here - the main syntax/twee.vim file handles preventing duplicate loads
 
 " ---- Define Chapbook-Specific Syntax Elements ----
 
