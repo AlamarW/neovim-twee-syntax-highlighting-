@@ -18,15 +18,15 @@
 " Note: Tree-sitter is automatically disabled for Twee files via plugin/twee.vim
 "       to prevent conflicts with traditional Vim syntax highlighting.
 
+" Clear any existing syntax to ensure clean slate
+" This MUST come before the guard so we clear even if another syntax was loaded
+syntax clear
+
 " Guard: Prevent loading if syntax is already set
-if exists("b:current_syntax")
+" After clearing, check if twee syntax was already loaded
+if exists("b:current_syntax") && b:current_syntax == "twee"
     finish
 endif
-
-" Clear any existing syntax to ensure clean slate
-" This is critical for proper loading when switching between formats or
-" when other plugins (like tree-sitter) have partially loaded syntax
-syntax clear
 
 " ---- Determine Story Format ----
 
