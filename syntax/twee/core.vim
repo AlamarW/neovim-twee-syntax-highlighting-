@@ -51,8 +51,10 @@ syn match tweeLinkedPassage	"\v\<-\zs([^]]*)" contained containedin=tweeLink
 
 " ---- Set Highlighting for Core Elements ----
 
-hi def link tweeLinkedPassage	StorageClass
+hi def link tweePassage			Special
 hi def link tweePassageTitle	StorageClass
+hi def link tweeLink			Special
+hi def link tweeLinkedPassage	StorageClass
 hi def link tweeComment			Comment
 hi def link tweeEOL				Comment
 hi def link tweeToDo			Todo
