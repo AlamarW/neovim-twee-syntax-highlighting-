@@ -26,7 +26,7 @@ syn region tweeSnowmanTemplate start="<%[-=]\?" end="%>" contains=tweeSnowmanVar
 " s.variable - story variables (persistent across passages)
 " window.story - story API access
 syn match tweeSnowmanVariable "\<s\.\w\+" contained
-syn match tweeSnowmanStoryAPI "\<window\.story\>\|\<story\.\w\+" contained
+syn match tweeSnowmanStoryAPI "\v<(window\.story|story\.\w+)>" contained
 
 " JavaScript Keywords (within templates)
 syn keyword tweeSnowmanKeyword var let const function if else for while do switch case break continue return try catch finally throw new typeof instanceof in of contained
