@@ -41,6 +41,11 @@ else
     echohl None
 endif
 
+" ---- Syntax Synchronization ----
+" This ensures highlighting works correctly throughout the entire file
+syn sync fromstart
+syn sync minlines=100
+
 " ---- Finalize ----
 
 let b:current_syntax = "twee"
