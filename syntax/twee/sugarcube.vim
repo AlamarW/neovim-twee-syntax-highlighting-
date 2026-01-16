@@ -44,6 +44,7 @@ syn match	tweeList		'^[*#]'
 
 " ---- Set Highlighting for SugarCube Elements ----
 
+hi def link tweeMacro			Special
 hi def link	tweeConditional		Conditional
 hi def link	tweeRepeat			Repeat
 hi def link	tweeLabel			Label
