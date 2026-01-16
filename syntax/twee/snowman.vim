@@ -17,7 +17,7 @@
 " <%= expression %> - Output expression
 " <% code %> - Execute JavaScript code
 " <%- expression %> - HTML-escaped output
-syn region tweeSnowmanTemplate start="<%[-=]\?" end="%>" contains=tweeSnowmanVariable,tweeSnowmanKeyword,tweeSnowmanFunction,tweeSnowmanOperator,tweeSnowmanString,tweeSnowmanNumber,tweeSnowmanBoolean
+syn region tweeSnowmanTemplate start="<%[-=]\?" end="%>" contains=tweeSnowmanVariable,tweeSnowmanStoryAPI,tweeSnowmanKeyword,tweeSnowmanFunction,tweeSnowmanOperator,tweeSnowmanString,tweeSnowmanNumber,tweeSnowmanBoolean,tweeSnowmanComment
 
 " Snowman Story Variables
 " s.variable - story variables (persistent across passages)
