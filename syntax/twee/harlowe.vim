@@ -73,7 +73,7 @@ syn match tweeHarloweOperator "\v<(is|isnot|contains|matches|and|or|not|to|into|
 " Hyphenated operators
 syn match tweeHarloweOperator "\v<(does-not-contain|is-not|does-not-match|is-in|is-not-in)>" contained
 " Symbol operators
-syn match tweeHarloweOperator "\v(\+|-|\*|/|%|>|<|>\=|<\=|\=\=|!\=)" contained
+syn match tweeHarloweOperator "\v(\+|-|\*|/|\%|>|<|>\=|<\=|\=\=|!\=)" contained
 
 " Harlowe Boolean Values
 syn keyword tweeHarloweBoolean true false contained
