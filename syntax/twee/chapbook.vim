@@ -39,7 +39,7 @@ syn keyword tweeChapbookKeyword if unless else append continued after ifalways i
 
 " Chapbook Operators (within modifiers)
 syn keyword tweeChapbookOperator and or not contained
-syn match tweeChapbookOperator "\v(\=\=\=|\!\=\=|\>\=|\<\=|\>|\<|\&\&|\|\|)" contained
+syn match tweeChapbookOperator "\v(===|!==|>=|<=|>|<|&&|\|\|)" contained
 
 " Chapbook Boolean Values
 syn keyword tweeChapbookBoolean true false contained
