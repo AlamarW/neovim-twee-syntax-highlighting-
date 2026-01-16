@@ -18,6 +18,13 @@ if exists("b:current_syntax")
     finish
 endif
 
+" Clear any existing subfile guards to ensure clean reload
+unlet! b:twee_core_syntax_loaded
+unlet! b:twee_sugarcube_syntax_loaded
+unlet! b:twee_harlowe_syntax_loaded
+unlet! b:twee_chapbook_syntax_loaded
+unlet! b:twee_snowman_syntax_loaded
+
 " ---- Determine Story Format ----
 
 " Priority: buffer-local > global > default (sugarcube for backward compatibility)
