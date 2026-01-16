@@ -18,6 +18,9 @@ if exists("b:current_syntax")
     finish
 endif
 
+" Clear any existing syntax to ensure clean slate
+syntax clear
+
 " ---- Determine Story Format ----
 
 " Priority: buffer-local > global > default (sugarcube for backward compatibility)
