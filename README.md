@@ -130,13 +130,26 @@ See [tests/README.md](tests/README.md) for more details.
    :TSBufToggle highlight
    ```
 
+6. **Enable debug mode:**
+   Edit `syntax/twee.vim` and uncomment the debug line at the end:
+   ```vim
+   echomsg "Twee syntax loaded successfully. Format: " . s:story_format
+   ```
+   Then check `:messages` after opening a file.
+
 ### Only first line is highlighted
 
-This usually indicates tree-sitter is overriding the syntax. The plugin automatically handles this, but if issues persist:
+This was a known issue in earlier versions where tree-sitter or other plugins would prevent Twee syntax from loading. The latest version fixes this by:
 
-1. Update the plugin to the latest version
+1. Clearing any existing syntax before checking guards
+2. Automatically disabling tree-sitter for Twee files
+3. Proper synchronization settings
+
+If you still experience this issue:
+1. Update to the latest version (critical fix in commit 744caf5)
 2. Restart Neovim completely
-3. Try manually disabling tree-sitter: `:TSBufDisable highlight`
+3. Verify tree-sitter is disabled: `:TSBufToggle highlight`
+4. Check `:messages` for any errors
 
 ### Syntax errors on load
 
