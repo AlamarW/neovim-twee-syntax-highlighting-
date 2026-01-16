@@ -8,14 +8,16 @@ if exists('g:loaded_twee_plugin')
 endif
 let g:loaded_twee_plugin = 1
 
-" Disable tree-sitter for twee files if nvim-treesitter is available
-" Tree-sitter can interfere with traditional Vim syntax highlighting
+" Disable tree-sitter for Twee files in Neovim
+" Tree-sitter can interfere with traditional Vim syntax highlighting, causing
+" issues like "only first line highlighted". We use pcall for safety in case
+" tree-sitter isn't available.
 if has('nvim')
   augroup TweeDisableTreesitter
     autocmd!
-    " Disable tree-sitter highlighting for Twee files
+    " Disable on FileType event (when syntax is set)
     autocmd FileType twee lua pcall(vim.treesitter.stop)
-    " Also prevent tree-sitter from starting on buffer enter
+    " Also disable on buffer enter as backup (in case FileType fires before plugin)
     autocmd BufEnter *.twee,*.tw lua pcall(vim.treesitter.stop)
   augroup END
 endif

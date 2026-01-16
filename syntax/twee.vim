@@ -18,28 +18,31 @@
 " Note: Tree-sitter is automatically disabled for Twee files via plugin/twee.vim
 "       to prevent conflicts with traditional Vim syntax highlighting.
 
-" Clear any existing syntax to ensure clean slate
-" This MUST come before the guard so we clear even if another syntax was loaded
+" ---- Critical: Clear Before Guard ----
+" MUST clear syntax BEFORE checking the guard. If tree-sitter or another plugin
+" has already set b:current_syntax (e.g., to "lua"), the guard would exit early
+" without clearing, preventing Twee syntax from ever loading.
 syntax clear
 
-" Guard: Prevent loading if syntax is already set
-" After clearing, check if twee syntax was already loaded
+" ---- Guard: Prevent Duplicate Load ----
+" Only exit if Twee syntax is already fully loaded. This allows us to override
+" other syntax (like tree-sitter) but prevents double-loading Twee itself.
 if exists("b:current_syntax") && b:current_syntax == "twee"
     finish
 endif
 
 " ---- Determine Story Format ----
-
 " Priority: buffer-local > global > default (sugarcube for backward compatibility)
 let s:story_format = get(b:, 'twee_story_format', get(g:, 'twee_story_format', 'sugarcube'))
 
 " ---- Load Core Twee 3 Syntax ----
-" This contains universal elements: passages, links, tags, comments, etc.
+" Reset b:current_syntax to allow subfiles to load properly. The subfiles don't
+" have their own guards, so they rely on this being cleared.
 let b:current_syntax = ''
 runtime! syntax/twee/core.vim
 
 " ---- Load Format-Specific Syntax ----
-" This contains format-specific elements: macros, variables, markdown, etc.
+" Validate format file exists before loading to provide helpful error messages
 let s:format_file = 'syntax/twee/' . s:story_format . '.vim'
 
 if filereadable(expand('<sfile>:p:h') . '/twee/' . s:story_format . '.vim')
@@ -53,10 +56,16 @@ else
 endif
 
 " ---- Syntax Synchronization ----
-" This ensures highlighting works correctly throughout the entire file
+" fromstart: Always parse from the beginning for accuracy (Twee files are small)
+" minlines: Look back at least 100 lines when re-syncing during scrolling
+" These settings ensure highlighting works correctly throughout the entire file,
+" preventing the "only first line highlighted" issue.
 syn sync fromstart
 syn sync minlines=100
 
 " ---- Finalize ----
-
+" Mark syntax as fully loaded. This prevents the guard from blocking re-entry.
 let b:current_syntax = "twee"
+
+" Debug: Uncomment to verify syntax loaded correctly
+" echomsg "Twee syntax loaded successfully. Format: " . s:story_format
