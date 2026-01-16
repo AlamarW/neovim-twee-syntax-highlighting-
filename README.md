@@ -66,6 +66,15 @@ The plugin works with any Vim-compatible plugin manager:
 - Traditional Vim managers: Pathogen, Vundle, vim-plug
 - Neovim-specific managers: lazy.nvim, packer.nvim
 
+### Tree-sitter Compatibility
+
+**For Neovim users:** This plugin automatically disables tree-sitter highlighting for Twee files to prevent conflicts with traditional Vim syntax highlighting. No manual configuration is required.
+
+If you need to manually toggle tree-sitter for Twee files:
+```vim
+:TSBufToggle highlight
+```
+
 ## Testing
 
 This plugin includes a comprehensive test suite to ensure reliability across different editors and configurations.
@@ -87,6 +96,53 @@ The test suite verifies:
 - Format detection and fallback behavior
 
 See [tests/README.md](tests/README.md) for more details.
+
+## Troubleshooting
+
+### Syntax highlighting not working
+
+1. **Verify the plugin is loaded:**
+   ```vim
+   :echo &runtimepath
+   ```
+   Look for the plugin directory in the output.
+
+2. **Check the filetype is set correctly:**
+   ```vim
+   :set filetype?
+   ```
+   Should output `filetype=twee`.
+
+3. **Verify story format is configured:**
+   ```vim
+   :echo get(g:, 'twee_story_format', 'not set')
+   ```
+
+4. **Check syntax groups are loaded:**
+   ```vim
+   :syn list
+   ```
+   Should show multiple `twee*` syntax groups.
+
+5. **For Neovim users with tree-sitter:**
+   Tree-sitter is automatically disabled, but you can manually verify:
+   ```vim
+   :TSBufToggle highlight
+   ```
+
+### Only first line is highlighted
+
+This usually indicates tree-sitter is overriding the syntax. The plugin automatically handles this, but if issues persist:
+
+1. Update the plugin to the latest version
+2. Restart Neovim completely
+3. Try manually disabling tree-sitter: `:TSBufDisable highlight`
+
+### Syntax errors on load
+
+If you see errors like `E475`, `E866`, or `E867`, please:
+1. Update to the latest version
+2. Report the issue with the error message and Vim/Neovim version
 
 ## Contribute
 

@@ -1,7 +1,8 @@
 " Vim syntax file
 " Language: Twee 3 (Format-Agnostic)
-" Maintainer: mcombeau
-" Latest Revision: 15 January 2026
+" Maintainer: AlamarW
+" Original Author: mcombeau
+" Latest Revision: 16 January 2026
 " Based on: https://github.com/PolyCement/vim-tweego/
 " Based on: https://gist.github.com/thricedotted/6590696
 "
@@ -13,12 +14,18 @@
 "   let b:twee_story_format = 'harlowe'    " Buffer-local override
 "
 " Supported formats: sugarcube, harlowe, chapbook, snowman
+"
+" Note: Tree-sitter is automatically disabled for Twee files via plugin/twee.vim
+"       to prevent conflicts with traditional Vim syntax highlighting.
 
+" Guard: Prevent loading if syntax is already set
 if exists("b:current_syntax")
     finish
 endif
 
 " Clear any existing syntax to ensure clean slate
+" This is critical for proper loading when switching between formats or
+" when other plugins (like tree-sitter) have partially loaded syntax
 syntax clear
 
 " ---- Determine Story Format ----
