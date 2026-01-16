@@ -25,6 +25,7 @@ let s:story_format = get(b:, 'twee_story_format', get(g:, 'twee_story_format', '
 
 " ---- Load Core Twee 3 Syntax ----
 " This contains universal elements: passages, links, tags, comments, etc.
+let b:current_syntax = ''
 runtime! syntax/twee/core.vim
 
 " ---- Load Format-Specific Syntax ----
