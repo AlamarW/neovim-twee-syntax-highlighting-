@@ -35,22 +35,27 @@ syn match tweeHarloweHookName "<\w\+|" contained containedin=tweeHarloweHook
 syn match tweeHarloweHookName "|\w\+>" contained containedin=tweeHarloweHook
 
 " Common Harlowe Commands (execute actions)
-syn keyword tweeHarloweCommand set put move print display go-to goto show hide replace append prepend rerun reload loadgame savegame contained
+syn keyword tweeHarloweCommand set put move print display goto show hide replace append prepend rerun reload loadgame savegame contained
+syn match tweeHarloweCommand "\v<(go-to)>" contained
 
 " Common Harlowe Changers (modify hooks)
-syn keyword tweeHarloweKeyword if unless else else-if for loop while each live stop cycling contained
+syn keyword tweeHarloweKeyword if unless else for loop while each live stop cycling contained
+syn match tweeHarloweKeyword "\v<(else-if)>" contained
 
 " Data Structure Macros
 syn keyword tweeHarloweKeyword a dm ds range repeated reversed sorted shuffled contained
 
 " Link Macros
-syn keyword tweeHarloweKeyword link link-goto link-reveal link-repeat link-undo link-fullscreen click mouseover mouseout mouseover-replace mouseout-replace contained
+syn keyword tweeHarloweKeyword link click mouseover mouseout contained
+syn match tweeHarloweKeyword "\v<(link-goto|link-reveal|link-repeat|link-undo|link-fullscreen|mouseover-replace|mouseout-replace)>" contained
 
 " Text Style Macros
-syn keyword tweeHarloweKeyword text-style text-colour text-color text-rotate bg background font align transition contained
+syn keyword tweeHarloweKeyword bg background font align transition contained
+syn match tweeHarloweKeyword "\v<(text-style|text-colour|text-color|text-rotate)>" contained
 
 " State/History Macros
-syn keyword tweeHarloweKeyword visited history passages saved-games contained
+syn keyword tweeHarloweKeyword visited history passages contained
+syn match tweeHarloweKeyword "\v<(saved-games)>" contained
 
 " Data Inspection Macros
 syn keyword tweeHarloweKeyword either nth contained
@@ -59,10 +64,15 @@ syn keyword tweeHarloweKeyword either nth contained
 syn keyword tweeHarloweKeyword continue break cond contained
 
 " Enchantment Macros
-syn keyword tweeHarloweKeyword enchant enchant-in change contained
+syn keyword tweeHarloweKeyword enchant change contained
+syn match tweeHarloweKeyword "\v<(enchant-in)>" contained
 
 " Harlowe Operators (used in macro arguments)
-syn keyword tweeHarloweOperator is isnot contains does-not-contain is-not matches does-not-match is-in is-not-in and or not to into of contained
+" Word operators (using match to avoid conflicts with Vim keywords)
+syn match tweeHarloweOperator "\v<(is|isnot|contains|matches|and|or|not|to|into|of)>" contained
+" Hyphenated operators
+syn match tweeHarloweOperator "\v<(does-not-contain|is-not|does-not-match|is-in|is-not-in)>" contained
+" Symbol operators
 syn match tweeHarloweOperator "\v(\+|\-|\*|/|%|\>|\<|\>\=|\<\=|\=\=|\!\=)" contained
 
 " Harlowe Boolean Values
