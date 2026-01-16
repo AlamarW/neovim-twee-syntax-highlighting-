@@ -9,10 +9,7 @@
 " Harlowe is a macro-based story format that uses hooks and changers
 " for displaying dynamic content and controlling game flow.
 
-if exists("b:twee_harlowe_syntax_loaded")
-    finish
-endif
-let b:twee_harlowe_syntax_loaded = 1
+" Note: No guard here - the main syntax/twee.vim file handles preventing duplicate loads
 
 " ---- Define Harlowe-Specific Syntax Elements ----
 

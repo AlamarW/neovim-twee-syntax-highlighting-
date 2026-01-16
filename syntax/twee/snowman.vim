@@ -9,10 +9,7 @@
 " Snowman is an advanced Twine story format designed for people who already
 " know JavaScript and CSS. It uses Underscore.js templates instead of macros.
 
-if exists("b:twee_snowman_syntax_loaded")
-    finish
-endif
-let b:twee_snowman_syntax_loaded = 1
+" Note: No guard here - the main syntax/twee.vim file handles preventing duplicate loads
 
 " ---- Define Snowman-Specific Syntax Elements ----
 
