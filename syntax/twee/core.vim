@@ -8,10 +8,6 @@
 
 " Note: No guard here - the main syntax/twee.vim file handles preventing duplicate loads
 
-" Include HTML syntax highlighting for .tw and .twee files
-runtime! syntax/html.vim
-unlet! b:current_syntax
-
 " ---- Define Core Twee 3 Syntax Elements ----
 
 " Twee Comments and TODO Keywords
