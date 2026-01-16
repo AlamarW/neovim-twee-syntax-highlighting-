@@ -3,9 +3,7 @@
 A [Vim](https://github.com/vim/vim) and [Neovim](https://neovim.io/) syntax highlighting plugin for [Twee 3](https://github.com/iftechfoundation/twine-specs/blob/master/twee-3-specification.md) story formats used with [Twine](http://twinery.org/).
 
 Supports multiple story formats through a modular plugin system:
-- **SugarCube 2/3** (fully supported)
-- Harlowe, Chapbook, Snowman (coming soon)
-
+- **SugarCube 2/3, Harlowe, Chapbook, Snowman** (fully supported)
 Enables highlighting for story format syntax and HTML in `.tw` and `.twee` files.
 
 ## Install
